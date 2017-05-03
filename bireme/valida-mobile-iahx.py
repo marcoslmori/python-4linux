@@ -12,21 +12,21 @@
 import urllib2
 
 
-instancias = ['homeopatia', 'brasil', 'saudepublica']
+instancias = ['portal', 'homeopatia', 'brasil', 'saudepublica']
 
-i = 0
+i = -1
 while i < 3:
 
-#  url = 'http://pesquisa.bvsalud.org/%s/config/config.xml' % i
+        #  url = 'http://pesquisa.bvsalud.org/%s/config/config.xml' % i
         # url = urllib2.Request('http://pesquisa.bvsalud.org/%s/config/config.xml' % i)
         url = ('http://pesquisa.bvsalud.org/%s/config/config.xml' % instancias[i])
-        print url
-        i = i + 1
-        print "baixando com urllib2"
+        # print url
+        # print "baixando com urllib2"
         f = urllib2.urlopen(url)
         data = f.read()
         # with open("config.xml",  "wb") as code:
-        nome = instancias[i]
+        nome = ('%s-config.xml' % instancias[i])
 	print nome
-	with open("config.xml",  "wb") as code:
+	with open(nome,  "wb") as code:
 	  code.write(data)
+        i = i + 1
