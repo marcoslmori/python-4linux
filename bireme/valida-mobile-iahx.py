@@ -8,7 +8,7 @@ import urllib2
 
 instancias = ['portal', 'homeopatia', 'brasil', 'saudepublica']
 
-i = -1
+# i = -1
 # while i < 3:
 for (i,item) in enumerate(instancias):
        	url = ('http://pesquisa.bvsalud.org/%s/config/config.xml' % instancias[i])
