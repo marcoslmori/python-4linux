@@ -9,14 +9,15 @@ import urllib2
 instancias = ['portal', 'homeopatia', 'brasil', 'saudepublica']
 
 i = -1
-while i < 3:
-
-        url = ('http://pesquisa.bvsalud.org/%s/config/config.xml' % instancias[i])
+# while i < 3:
+for (i,item) in enumerate(instancias):
+       	url = ('http://pesquisa.bvsalud.org/%s/config/config.xml' % instancias[i])
         # print url
+	# print i, item
         f = urllib2.urlopen(url)
         data = f.read()
         nome = ('%s-config.xml' % instancias[i])
-	print nome
+	# print nome
 	with open(nome,  "wb") as code:
-	  code.write(data)
+		code.write(data)
         i = i + 1
