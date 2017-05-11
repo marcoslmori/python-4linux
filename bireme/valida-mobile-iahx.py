@@ -28,23 +28,18 @@ for (i,item) in enumerate(instancias):
 	tree = ET.parse(nome)
 	root = tree.getroot()
 	#root = ET.fromstring(site_data_as_string)
-	print tree
+	#print tree
 	print '---------------------------------- '
-	print root
+	#print root
 	# testar o findint interesting elements no link do final da pagina
-	#for neighbor in root.iter('mobile_version'):
-	#	print neighbor.attrib
-	#	print '---------------------------------'
-	#	for child in root:
-	#		print child.tag, child.attrib
-	#	print child.mobile_version
-	#print '---------------------------------'
+	for mobile_version in root.iter('mobile_version'):
+	#	print mobile_version.text
+	#valida_mobile = mobile_version.txt	
+		if mobile_version.text == "true":
+			print nome +" ok"
 
-	#for mobile_version in root.findall('mobile_version'):
-	#	rank = mobile_version.find('true').txt
-	#	name = mobile_version.get('true')
-	#print name, rank
-
+	
 	i = i + 1
+#referencias
 #https://docs.python.org/2/library/xml.etree.elementtree.html
 	
