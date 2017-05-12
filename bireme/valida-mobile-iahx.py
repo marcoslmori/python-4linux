@@ -6,9 +6,21 @@
 
 import urllib2
 import xml.etree.ElementTree as ET
+import os
+import commands
 
+# implementar via sistema operacioanl ls -l /home/apps/bvsalud-org/pesquisa/htdocs/ |grep "^d" |awk '{ print $9 }'
+# instancias = ['portal', 'homeopatia', 'brasil', 'saudepublica']i
+# para apagar esse arquivo.  tem que descobrir por que cria 
+#  rm ./-config.xml
 
-instancias = ['portal', 'homeopatia', 'brasil', 'saudepublica']
+os.system("")
+instancias = open('cfg/instancias.txt').read().splitlines()
+
+# print instancias
+
+#=arq = open('/tmp/lista.txt', 'w')
+
 
 # i = -1
 # while i < 3:
@@ -16,10 +28,21 @@ for (i,item) in enumerate(instancias):
        	url = ('http://pesquisa.bvsalud.org/%s/config/config.xml' % instancias[i])
         # print url
 	# print i, item
-        f = urllib2.urlopen(url)
-        data = f.read()
-        nome = ('%s-config.xml' % instancias[i])
-	# print nome
+	# f = urllib2.urlopen(url)
+       	while True:
+		try:
+			f = urllib2.urlopen(url)
+	 		data = f.read()
+        		#print data
+        		nome = ('%s-config.xml' % instancias[i])
+			print nome
+			# print nome
+			break
+		except Exception:
+			print url
+			print 'url invalida'
+			break
+
 	with open(nome,  "wb") as code:
 		code.write(data)
 	#print nome
@@ -36,9 +59,7 @@ for (i,item) in enumerate(instancias):
 	#	print mobile_version.text
 	#valida_mobile = mobile_version.txt	
 		if mobile_version.text == "true":
-			print nome +" ok"
-
-	
+			print nome +" ok"	
 	i = i + 1
 #referencias
 #https://docs.python.org/2/library/xml.etree.elementtree.html
