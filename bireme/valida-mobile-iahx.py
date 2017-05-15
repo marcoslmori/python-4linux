@@ -14,7 +14,7 @@ import commands
 # para apagar esse arquivo.  tem que descobrir por que cria 
 #  rm ./-config.xml
 
-os.system("")
+os.system("ls -l /home/apps/bvsalud-org/pesquisa/htdocs/ |grep "^d" |awk '{ print $9 }'")
 instancias = open('cfg/instancias.txt').read().splitlines()
 
 # print instancias
