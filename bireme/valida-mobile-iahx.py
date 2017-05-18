@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # Descricao do script
 # baixar os arquivos config.xml das instancias de iahx
 # exemplo http://pesquisa.bvsalud.org/homeopatia/config/config.xml
@@ -8,16 +9,16 @@ import urllib2
 import xml.etree.ElementTree as ET
 import os
 import commands
-
+# import errno, sys
 # implementar via sistema operacioanl ls -l /home/apps/bvsalud-org/pesquisa/htdocs/ |grep "^d" |awk '{ print $9 }'
 # instancias = ['portal', 'homeopatia', 'brasil', 'saudepublica']i
 # para apagar esse arquivo.  tem que descobrir por que cria 
 #  rm ./-config.xml
 
-os.system("ls -l /home/apps/bvsalud-org/pesquisa/htdocs/ |grep "^d" |awk '{ print $9 }'")
+# os.system("ls -l /home/apps/bvsalud-org/pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' > cfg/instancias.txt")
 instancias = open('cfg/instancias.txt').read().splitlines()
 
-# print instancias
+print instancias
 
 #=arq = open('/tmp/lista.txt', 'w')
 
@@ -26,23 +27,25 @@ instancias = open('cfg/instancias.txt').read().splitlines()
 # while i < 3:
 for (i,item) in enumerate(instancias):
        	url = ('http://pesquisa.bvsalud.org/%s/config/config.xml' % instancias[i])
-        # print url
+        print url
 	# print i, item
-	# f = urllib2.urlopen(url)
-       	while True:
+	#f = urllib2.urlopen(url)
+	#data = f.read()
+       	#nome = ('%s-config.xml' % instancias[i])
+	while True:
 		try:
 			f = urllib2.urlopen(url)
 	 		data = f.read()
         		#print data
         		nome = ('%s-config.xml' % instancias[i])
-			print nome
+			#print nome
+			#sys.exit(os.EX_CONFIG) 
 			# print nome
 			break
 		except Exception:
 			print url
 			print 'url invalida'
 			break
-
 	with open(nome,  "wb") as code:
 		code.write(data)
 	#print nome
