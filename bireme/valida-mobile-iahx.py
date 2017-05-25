@@ -16,8 +16,8 @@ import commands
 #  rm ./-config.xml
 
 
-#os.system("echo -e 'x' > cfg/instancias.txt")
-#os.system("ls -l /home/apps/bvsalud-org/pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
+os.system("echo '' > cfg/instancias.txt")
+os.system("ls -l /bvsalud-org/pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
 instancias = open('cfg/instancias.txt').read().splitlines()
 
 print instancias
@@ -29,7 +29,7 @@ print instancias
 # while i < 3:
 for (i,item) in enumerate(instancias):
        	url = ('http://pesquisa.bvsalud.org/%s/config/config.xml' % instancias[i])
-        print url
+        # print url
 	# print i, item
 	#f = urllib2.urlopen(url)
 	#data = f.read()
