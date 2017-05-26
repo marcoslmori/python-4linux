@@ -17,10 +17,10 @@ import commands
 
 
 os.system("echo '' > cfg/instancias.txt")
-os.system("ls -l /bvsalud-org/pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
+os.system("ls -l //bvsalud-org/pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
 instancias = open('cfg/instancias.txt').read().splitlines()
 
-print instancias
+#print instancias
 
 #=arq = open('/tmp/lista.txt', 'w')
 
@@ -45,11 +45,12 @@ for (i,item) in enumerate(instancias):
 			# print nome
 			break
 		except Exception:
-			print url
+			#print url
 			print 'url invalida'
 			break
 	with open(nome,  "wb") as code:
-		code.write(data)
+		#code.write(data)
+		code.write('cfg/\'data')
 	#print nome
         #e = xml.etree.ElementTree.parse(nome).getroot()
 	#print e
