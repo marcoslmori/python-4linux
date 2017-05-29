@@ -16,8 +16,8 @@ import commands
 #  rm ./-config.xml
 
 
-os.system("echo '' > cfg/instancias.txt")
-os.system("ls -l //bvsalud-org/pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
+os.system("echo '' > instancias.txt")
+os.system("ls -l /pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
 instancias = open('cfg/instancias.txt').read().splitlines()
 
 #print instancias
@@ -39,8 +39,9 @@ for (i,item) in enumerate(instancias):
 			f = urllib2.urlopen(url)
 	 		data = f.read()
         		#print data
-        		nome = ('%s-config.xml' % instancias[i])
-			#print nome
+        		nome = ('xml/%s-config.xml' % instancias[i])
+			#nome = ('%s-config.xml' % instancias[i])
+			#print 'xml/'+nome
 			#sys.exit(os.EX_CONFIG) 
 			# print nome
 			break
@@ -49,8 +50,7 @@ for (i,item) in enumerate(instancias):
 			print 'url invalida'
 			break
 	with open(nome,  "wb") as code:
-		#code.write(data)
-		code.write('cfg/\'data')
+		code.write(data)
 	#print nome
         #e = xml.etree.ElementTree.parse(nome).getroot()
 	#print e
