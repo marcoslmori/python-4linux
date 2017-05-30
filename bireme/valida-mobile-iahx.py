@@ -9,63 +9,39 @@ import urllib2
 import xml.etree.ElementTree as ET
 import os
 import commands
-# import errno, sys
-# implementar via sistema operacioanl ls -l /home/apps/bvsalud-org/pesquisa/htdocs/ |grep "^d" |awk '{ print $9 }'
-# instancias = ['portal', 'homeopatia', 'brasil', 'saudepublica']i
-# para apagar esse arquivo.  tem que descobrir por que cria 
 #  rm ./-config.xml
 
 
 os.system("echo '' > instancias.txt")
-os.system("ls -l /pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
+os.system("ls -l pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
 instancias = open('cfg/instancias.txt').read().splitlines()
 
-#print instancias
-
-#=arq = open('/tmp/lista.txt', 'w')
-
-
-# i = -1
-# while i < 3:
+i = 0
 for (i,item) in enumerate(instancias):
        	url = ('http://pesquisa.bvsalud.org/%s/config/config.xml' % instancias[i])
-        # print url
-	# print i, item
-	#f = urllib2.urlopen(url)
-	#data = f.read()
-       	#nome = ('%s-config.xml' % instancias[i])
+	print "=====for=======" + str(1)
 	while True:
 		try:
 			f = urllib2.urlopen(url)
-	 		data = f.read()
-        		#print data
+	 		print "=====try=======" + str(1) 
+			data = f.read()
         		nome = ('xml/%s-config.xml' % instancias[i])
-			#nome = ('%s-config.xml' % instancias[i])
-			#print 'xml/'+nome
-			#sys.exit(os.EX_CONFIG) 
-			# print nome
+			print nome 
 			break
 		except Exception:
-			#print url
+			print "=====except=======" + str(i)
+			print nome
 			print 'url invalida'
-			break
+		 	break
+			#pass
 	with open(nome,  "wb") as code:
 		code.write(data)
-	#print nome
-        #e = xml.etree.ElementTree.parse(nome).getroot()
-	#print e
 	tree = ET.parse(nome)
 	root = tree.getroot()
-	#root = ET.fromstring(site_data_as_string)
-	#print tree
-	print '---------------------------------- '
-	#print root
-	# testar o findint interesting elements no link do final da pagina
 	for mobile_version in root.iter('mobile_version'):
-	#	print mobile_version.text
-	#valida_mobile = mobile_version.txt	
 		if mobile_version.text == "true":
 			print nome +" ok"	
+	print "=====fim=======" + str(1)
 	i = i + 1
 #referencias
 #https://docs.python.org/2/library/xml.etree.elementtree.html
