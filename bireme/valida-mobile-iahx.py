@@ -13,10 +13,10 @@ import commands
 
 
 os.system("echo '' > instancias.txt")
-os.system("ls -l /xxxxxxx/pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
+os.system("ls -l /xxxxxxxx/pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
 instancias = open('cfg/instancias.txt').read().splitlines()
 
-i = 1
+i = 2
 for (i,item) in enumerate(instancias):
        	url = ('http://pesquisa.bvsalud.org/%s/config/config.xml' % instancias[i])
 	#print "=====for=======" + str(1)
@@ -36,7 +36,7 @@ for (i,item) in enumerate(instancias):
                         		print nome +" ok"
 			break
 		except Exception:
-			print "=====except=======" + str(i)
+			#print "=====except=======" + str(i)
 			print nome + " url invalida"
 		 	break
 			#pass
@@ -49,7 +49,7 @@ for (i,item) in enumerate(instancias):
 	#		print nome +" ok"	
 	#print "=====fim=======" + str(1)
 	i = i + 1
-	print str(i)
+	#print str(i)
 #referencias
 #https://docs.python.org/2/library/xml.etree.elementtree.html
 	
