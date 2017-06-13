@@ -13,32 +13,41 @@ import commands
 
 
 os.system("echo '' > instancias.txt")
-os.system("ls -l /xxxxxxxx/pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
+os.system("ls -l /home/apps/bvsalud-org/pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
 instancias = open('cfg/instancias.txt').read().splitlines()
 
 i = 2
 for (i,item) in enumerate(instancias):
        	url = ('http://pesquisa.bvsalud.org/%s/config/config.xml' % instancias[i])
+	print  url
 	#print "=====for=======" + str(1)
 	while True:
 		try:
+			print url 
 			f = urllib2.urlopen(url)
 	 		#print "=====try=======" + str(1) 
 			data = f.read()
         		nome = ('xml/%s-config.xml' % instancias[i])
 			#print nome 
-                        with open(nome,  "wb") as code:
-                            code.write(data)
+                        #try:
+			with open(nome,  "wb") as code:
+                            	code.write(data)
         		tree = ET.parse(nome)
         		root = tree.getroot()
         		for mobile_version in root.iter('mobile_version'):
                			 if mobile_version.text == "true":
                         		print nome +" ok"
+					i = i + 1
 			break
+			#return
 		except Exception:
 			#print "=====except=======" + str(i)
+			i = i + 1
+			print url
 			print nome + " url invalida"
-		 	break
+			#i = i + 1 
+			break
+			#return
 			#pass
 	#with open(nome,  "wb") as code:
 	#	code.write(data)
@@ -48,8 +57,7 @@ for (i,item) in enumerate(instancias):
 	#	if mobile_version.text == "true":
 	#		print nome +" ok"	
 	#print "=====fim=======" + str(1)
-	i = i + 1
+	#i = i + 1
 	#print str(i)
 #referencias
-#https://docs.python.org/2/library/xml.etree.elementtree.html
-	
+#https://docs.python.org/2/library/xml.etree.elementtree.html	
