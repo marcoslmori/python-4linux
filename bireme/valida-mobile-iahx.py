@@ -14,7 +14,7 @@ import commands
 
 os.system("rm cfg/instancias.txt")
 os.system("echo '' > cfg/`instancias.txt")
-os.system("ls -l /home/apps/bvsalud-org/pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
+os.system("ls -l /pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
 instancias = open('cfg/instancias.txt').read().splitlines()
 
 i = 2
