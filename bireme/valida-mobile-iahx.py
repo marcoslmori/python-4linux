@@ -12,18 +12,19 @@ import commands
 #  rm ./-config.xml
 
 
-os.system("echo '' > instancias.txt")
+os.system("rm cfg/instancias.txt")
+os.system("echo '' > cfg/`instancias.txt")
 os.system("ls -l /home/apps/bvsalud-org/pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
 instancias = open('cfg/instancias.txt').read().splitlines()
 
 i = 2
 for (i,item) in enumerate(instancias):
        	url = ('http://pesquisa.bvsalud.org/%s/config/config.xml' % instancias[i])
-	print  url
+	#print  url
 	#print "=====for=======" + str(1)
 	while True:
 		try:
-			print url 
+			#print url 
 			f = urllib2.urlopen(url)
 	 		#print "=====try=======" + str(1) 
 			data = f.read()
@@ -41,10 +42,13 @@ for (i,item) in enumerate(instancias):
 			break
 			#return
 		except Exception:
+			print "excecao - " + url
 			#print "=====except=======" + str(i)
 			i = i + 1
-			print url
-			print nome + " url invalida"
+			#print url
+			#nome = ('xml/%s-config.xml' % instancias[i])
+			#print nome
+			# print nome + " url invalida"
 			#i = i + 1 
 			break
 			#return
