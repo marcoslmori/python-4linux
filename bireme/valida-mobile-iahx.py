@@ -13,8 +13,8 @@ import commands
 
 
 os.system("rm cfg/instancias.txt")
-os.system("echo '' > cfg/`instancias.txt")
-os.system("ls -l /bvsalud-org/pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
+# os.system("echo '' > cfg/`instancias.txt")
+os.system("ls -l bvsalud-org/pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
 instancias = open('cfg/instancias.txt').read().splitlines()
 
 i = 2
@@ -24,46 +24,31 @@ for (i,item) in enumerate(instancias):
 	#print "=====for=======" + str(1)
 	while True:
 		try:
-			#print url 
 			f = urllib2.urlopen(url)
-	 		#print "=====try=======" + str(1) 
 			data = f.read()
         		nome = ('xml/%s-config.xml' % instancias[i])
-			#print nome 
-                        #try:
 			with open(nome,  "wb") as code:
                             	code.write(data)
         		tree = ET.parse(nome)
         		root = tree.getroot()
         		for mobile_version in root.iter('mobile_version'):
                			 if mobile_version.text == "true":
-                        		print nome +" ok"
+                        		print nome +" mobile OK"
                                  else:
-                                        print nome +" Nok"
+                                        print nome +" Mobile NOK"
+
+			for show_related_docs in root.iter('show_related_docs'):
+                                 if show_related_docs.text == "false":
+                                        print nome +" Doc Relacionados  OK"
+                                 else:
+                                        print nome +" Doc Relacionados  NOK"
+
 			i = i + 1
+			print "------------------------------"
 			break
-			#return
 		except Exception:
-			print "excecao - " + url
-			#print "=====except=======" + str(i)
+			# print "excecao - " + url
 			i = i + 1
-			#print url
-			#nome = ('xml/%s-config.xml' % instancias[i])
-			#print nome
-			# print nome + " url invalida"
-			#i = i + 1 
 			break
-			#return
-			#pass
-	#with open(nome,  "wb") as code:
-	#	code.write(data)
-	#tree = ET.parse(nome)
-	#root = tree.getroot()
-	#for mobile_version in root.iter('mobile_version'):
-	#	if mobile_version.text == "true":
-	#		print nome +" ok"	
-	#print "=====fim=======" + str(1)
-	#i = i + 1
-	#print str(i)
 #referencias
 #https://docs.python.org/2/library/xml.etree.elementtree.html	
