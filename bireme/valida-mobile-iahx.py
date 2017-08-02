@@ -9,12 +9,12 @@ import urllib2
 import xml.etree.ElementTree as ET
 import os
 import commands
-#  rm ./-config.xml
+# rm ./-config.xml
 
 
 os.system("rm cfg/instancias.txt")
 os.system("echo '' > cfg/`instancias.txt")
-os.system("ls -l /pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
+os.system("ls -l /bvsalud-org/pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
 instancias = open('cfg/instancias.txt').read().splitlines()
 
 i = 2
@@ -38,7 +38,9 @@ for (i,item) in enumerate(instancias):
         		for mobile_version in root.iter('mobile_version'):
                			 if mobile_version.text == "true":
                         		print nome +" ok"
-					i = i + 1
+                                 else:
+                                        print nome +" Nok"
+			i = i + 1
 			break
 			#return
 		except Exception:
