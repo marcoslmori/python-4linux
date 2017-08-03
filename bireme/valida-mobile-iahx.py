@@ -14,12 +14,14 @@ import commands
 
 os.system("rm cfg/instancias.txt")
 # os.system("echo '' > cfg/`instancias.txt")
-os.system("ls -l /bvsalud-org/pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
+os.system("ls -l /pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
 instancias = open('cfg/instancias.txt').read().splitlines()
-
+id_google = []
+id_google_dup = []
 i = 1
 for (i,item) in enumerate(instancias):
        	url = ('http://pesquisa.bvsalud.org/%s/config/config.xml' % instancias[i])
+	
 	#print  url
 	#print "=====for=======" + str(1)
 	while True:
@@ -32,6 +34,7 @@ for (i,item) in enumerate(instancias):
         		tree = ET.parse(nome)
         		root = tree.getroot()
 
+                        print url                     
 
 			for site in root.iter('site'):
                                         print site.text
@@ -50,6 +53,11 @@ for (i,item) in enumerate(instancias):
 
 			for google_analytics_tracking_id in root.iter('google_analytics_tracking_id'):
 				print google_analytics_tracking_id.text
+				if google_analytics_tracking_id.text in id_google:
+				   id_google_dup.append(google_analytics_tracking_id.text)
+       				else:
+				   id_google.append(google_analytics_tracking_id.text)
+				#print id_google
 
 
 			i = i + 1
@@ -59,5 +67,14 @@ for (i,item) in enumerate(instancias):
 			# print "excecao - " + url
 			i = i + 1
 			break
+
+#print id_google
+
+print "ID de google analytics duplicados"
+
+print  id_google_dup
+
+print "------------------------------"
+
 #referencias
 #https://docs.python.org/2/library/xml.etree.elementtree.html	
