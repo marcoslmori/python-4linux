@@ -14,10 +14,10 @@ import commands
 
 os.system("rm cfg/instancias.txt")
 # os.system("echo '' > cfg/`instancias.txt")
-os.system("ls -l bvsalud-org/pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
+os.system("ls -l /bvsalud-org/pesquisa/htdocs/ |grep '^d' |awk '{ print $9 }' >> cfg/instancias.txt")
 instancias = open('cfg/instancias.txt').read().splitlines()
 
-i = 2
+i = 1
 for (i,item) in enumerate(instancias):
        	url = ('http://pesquisa.bvsalud.org/%s/config/config.xml' % instancias[i])
 	#print  url
@@ -31,6 +31,11 @@ for (i,item) in enumerate(instancias):
                             	code.write(data)
         		tree = ET.parse(nome)
         		root = tree.getroot()
+
+
+			for site in root.iter('site'):
+                                        print site.text
+
         		for mobile_version in root.iter('mobile_version'):
                			 if mobile_version.text == "true":
                         		print nome +" mobile OK"
@@ -42,6 +47,10 @@ for (i,item) in enumerate(instancias):
                                         print nome +" Doc Relacionados  OK"
                                  else:
                                         print nome +" Doc Relacionados  NOK"
+
+			for google_analytics_tracking_id in root.iter('google_analytics_tracking_id'):
+				print google_analytics_tracking_id.text
+
 
 			i = i + 1
 			print "------------------------------"
